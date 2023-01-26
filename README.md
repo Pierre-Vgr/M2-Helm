@@ -23,3 +23,16 @@ Hang tight while we grab the latest from your chart repositories...
 ...Successfully got an update from the "nextcloud" chart repository
 Update Complete. ⎈Happy Helming!⎈
 ```` 
+
+`helm install my-release nextcloud/nextcloud`
+
+```
+ export APP_HOST=127.0.0.1
+  export APP_PASSWORD=$(kubectl get secret --namespace default my-release-nextcloud -o jsonpath="{.data.nextcloud-password}" | base64 --decode)
+
+```
+
+```
+  helm upgrade my-release nextcloud/nextcloud \
+    --set nextcloud.password=$APP_PASSWORD,nextcloud.host=$APP_HOST,service.type=ClusterIP,mariadb.enabled=false,externalDatabase.user=nextcloud,externalDatabase.database=nextcloud,externalDatabase.host=YOUR_EXTERNAL_DATABASE_HOST
+```

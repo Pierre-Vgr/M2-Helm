@@ -76,3 +76,18 @@ NOTES:
 
 ## Ajout de contenu
 
+Pour remplacer le contenu du fichier index.html on peut utiliser un fichier configmap.yml :
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-index-html-configmap
+  namespace: default
+data:
+  index.html: |
+    <html>
+    <h1>Welcome</h1>
+    </br>
+    <h1>Hi! I got deployed in {{ .Values.env.name }} Environment using Helm Chart </h1>
+    </html```
